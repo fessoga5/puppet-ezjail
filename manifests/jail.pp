@@ -11,6 +11,7 @@ define puppet-ezjail::jail (
 	$jail_ipaddress,
 	$jail_gateway,
 	$create = false,
+	$running = false,
 )
 {
 	$path_freebsd = ["/bin", "/sbin","/usr/bin", "/usr/sbin", "/usr/local/bin", "/usr/local/sbin"]
@@ -25,6 +26,14 @@ define puppet-ezjail::jail (
 	if ( $create = true ) {
 		exec { "ezjail-admin -r $jail_rootdir/$jail_hostname $jail_hostname $jail_ipaddress":
 			path => $path_freebsd,
+			require => File["$conf_dir/$jail_name"]
+		}
+	}
+	
+	if ( $running = true ){
+		exec {"ezjail-admin start $jail_hostname":
+			path => $path_freebsd,
+			require => File["$conf_dir/$jail_name"]
 		}
 	}	
 }
