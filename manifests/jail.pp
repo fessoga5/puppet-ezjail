@@ -41,7 +41,8 @@ define puppet-ezjail::jail (
 		exec { "running-ezjail":
 			command => "ezjail-admin start $jail_hostname",
 			path => $path_freebsd,
-			require => File["$conf_dir/$jail_name"]
+			require => File["$conf_dir/$jail_name"],
+			unless => 'jls | grep $jail_name'
 		}
 	}	
 }
