@@ -34,7 +34,6 @@ define puppet-ezjail::jail (
 		exec { "create-ezjail":
 			command => "ezjail-admin create -r $jail_rootdir/$jail_hostname $jail_name $jail_ipaddress",
 			path => $path_freebsd,
-			require => File["$conf_dir/$jail_name"]
 		}
 	}
 	
