@@ -2,10 +2,11 @@
 #
 #INSTALL SKYPE ON DESKTOP
 #
-class puppet-ezjail ($source, $destination = "/root/skype.deb") {
+class puppet-ezjail {
     #Class for puppet
-    package {"ezjail-admin": 
-        ensure => installed,
-        providers => "ports",
+    package {"ezjail":
+        source => "/usr/ports/sysutils/ezjail",
+        ensure => installable,
+        providers => ports,
     }
 }
