@@ -3,8 +3,8 @@
 #INSTALL SKYPE ON DESKTOP
 #
 define puppet-ezjail::jail (
-	$conf_dir => "/usr/local/etc/ezjail/",
-	$owner => "root",
+	$conf_dir = "/usr/local/etc/ezjail/",
+	$owner = "root",
 	$jail_name,
 	$jail_rootdir = "/usr/jails/",
 	$jail_hostname,
