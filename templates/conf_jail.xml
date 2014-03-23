@@ -14,7 +14,7 @@ export jail_<%= jail_name %>_exec_start="/bin/sh /etc/rc"
 export jail_<%= jail_name %>_exec_stop="/bin/sh /etc/rc.shutdown"
 #
 export jail_<%= jail_name %>_ip=""
-export jail_<%= jail_name %>_rootdir="<%= jail_rootdir %><%= jail_hostname %>"
+export jail_<%= jail_name %>_rootdir="<%= jail_rootdir %>/<%= jail_hostname %>"
 export jail_<%= jail_name %>_mount_enable="YES"
 export jail_<%= jail_name %>_devfs_enable="YES"
 export jail_<%= jail_name %>_devfs_ruleset="devfsrules_jail"
