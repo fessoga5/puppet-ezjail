@@ -22,7 +22,7 @@ define puppet-ezjail::jail (
 		content => template('puppet-ezjail/conf_jail.xml'),
       	}
 
-	if ( $create == true ) {
+	if ( $create = true ) {
 		exec { "ezjail-admin -r $jail_rootdir/$jail_hostname $jail_hostname $jail_ipaddress":
 			path => $path_freebsd,
 		}
