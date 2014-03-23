@@ -17,7 +17,7 @@ define puppet-ezjail::jail (
 	
 	$require_test = $create ? {
 		true  => Exec["create-ezjail"],
-		false => '' 
+		false => 'unset' 
 	}
 	
 	$path_freebsd = ["/bin", "/sbin","/usr/bin", "/usr/sbin", "/usr/local/bin", "/usr/local/sbin"]
