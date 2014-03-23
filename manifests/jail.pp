@@ -16,7 +16,7 @@ define puppet-ezjail::jail (
 {
 	
 	$require_test = $create ? {
-		true  => File["$conf_dir/$jail_name"],
+		true  => Exec["create-ezjail"],
 		false => '' 
 	}
 	
