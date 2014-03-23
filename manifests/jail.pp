@@ -7,7 +7,7 @@ define puppet-ezjail::jail (
 	$owner = "root",
 	$jail_name,
 	$jail_hostname,
-	$jail_rootdir = "/usr/jails/$jail_hostname",
+	$jail_rootdir = "/usr/jails/",
 	$create = false,
 )
 {
