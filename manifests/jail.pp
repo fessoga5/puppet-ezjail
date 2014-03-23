@@ -14,6 +14,12 @@ define puppet-ezjail::jail (
 	$running = false,
 )
 {
+	
+	$require_test = $create ? {
+		true  => File["$conf_dir/$jail_name"],
+		false => '' 
+	}
+	
 	$path_freebsd = ["/bin", "/sbin","/usr/bin", "/usr/sbin", "/usr/local/bin", "/usr/local/sbin"]
 	#Template for new jail
 	file { "$conf_dir/$jail_name":
@@ -21,17 +27,20 @@ define puppet-ezjail::jail (
 		owner   => $owner,
 		mode    => 600,
 		content => template('puppet-ezjail/conf_jail.xml'),
+		require_test => $require_test
       	}
 
 	if ( $create == true ) {
-		exec { "ezjail-admin create -r $jail_rootdir/$jail_hostname $jail_name $jail_ipaddress":
+		exec { "create-ezjail":
+			command => "ezjail-admin create -r $jail_rootdir/$jail_hostname $jail_name $jail_ipaddress",
 			path => $path_freebsd,
 			require => File["$conf_dir/$jail_name"]
 		}
 	}
 	
 	if ( $running == true ){
-		exec {"ezjail-admin start $jail_hostname":
+		exec { "running-ezjail":
+			command => "ezjail-admin start $jail_hostname",
 			path => $path_freebsd,
 			require => File["$conf_dir/$jail_name"]
 		}
