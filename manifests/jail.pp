@@ -8,6 +8,8 @@ define puppet-ezjail::jail (
 	$jail_name,
 	$jail_hostname,
 	$jail_rootdir = "/usr/jails/",
+	$jail_ipaddress,
+	$jail_gateway,
 	$create = false,
 )
 {
@@ -21,7 +23,7 @@ define puppet-ezjail::jail (
       	}
 
 	if ( $create == true ) {
-		exec { "echo 1":
+		exec { "ezjail-admin -r $jail_rootdir/$jail_hostname $jail_hostname $jail_ipaddress":
 			path => $path_freebsd,
 		}
 	}	
