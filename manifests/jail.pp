@@ -27,7 +27,7 @@ define puppet-ezjail::jail (
 		owner   => $owner,
 		mode    => 600,
 		content => template('puppet-ezjail/conf_jail.xml'),
-		require_test => $require_test
+		require => $require_test
       	}
 
 	if ( $create == true ) {
