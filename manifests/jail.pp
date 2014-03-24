@@ -12,6 +12,7 @@ define puppet-ezjail::jail (
 	$jail_gateway,
 	$create = false,
 	$running = false,
+	$extra_parametrs = "persist allow.raw_sockets=1 allow.sysvipc=1",
 )
 {
 	
