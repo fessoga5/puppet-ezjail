@@ -36,7 +36,7 @@ define puppet-ezjail::jail (
 		mode    => 600,
 		content => template('puppet-ezjail/conf_jail.xml'),
 		require => $require_test,
-		notify => Exec["restart_jail"]
+		notify  => $restart_jail, 
 	}
 
 	exec{"restart_jail": 
