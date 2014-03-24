@@ -49,7 +49,7 @@ define puppet-ezjail::jail (
 		mode    => 600,
 		content => template('puppet-ezjail/conf_jail.xml'),
 		require => $require_test,
-		notify => Restart["$jail_hostname": flags => true, ],
+		notify => Restart["$jail_hostname"],
       	}
 
 	if ( $create == true ) {
