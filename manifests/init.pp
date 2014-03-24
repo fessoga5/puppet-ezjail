@@ -1,8 +1,14 @@
 # vim: sts=4 ts=4 sw=4 expandtab autoindent
 #
-#INSTALL SKYPE ON DESKTOP
+#Module for install and managment ezjail on Freebsd 10! 
+#autor: fessoga5@gmail.com
 #
-class puppet-ezjail ($force_install = false) {
+class puppet-ezjail ($force_install = false, $enabled = false) {
+    #autostart. Add to rc.conf
+    augeas {"rc.conf":
+        context => "/etc/rc.conf",
+        changes => ["ezjail_enable=YES"],
+    }
 
     #variables
     $path_freebsd = ["/bin", "/sbin","/usr/bin", "/usr/sbin", "/usr/local/bin", "/usr/local/sbin"]
