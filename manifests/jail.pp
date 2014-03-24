@@ -21,7 +21,7 @@ define puppet-ezjail::jail (
     #Create interfaces in rc.conf
     augeas {"rc.conf_bridge":
         context => "/files/etc/rc.conf",
-        changes => ["set ifconfig_bridge0 \"inet 172.16.0.1/30\"/"],
+        changes => ["set ifconfig_bridge0 \"inet 192.168.5.1 netmask 255.255.255.0\""],
     }
 
     #
