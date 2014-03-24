@@ -24,7 +24,7 @@ define puppet-ezjail::jail (
 		false => undef, 
 	}
 	
-	define restart(){
+	define restart {
 		exec{"restart_jail": command => "ezjail_admin restart $jail_hostname", path => $path_freebsd,},
 	}
 	
