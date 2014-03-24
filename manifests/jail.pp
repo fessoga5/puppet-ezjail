@@ -33,12 +33,14 @@ define puppet-ezjail::jail (
 		require => $require_test,
 		notify => Exec["restart_jail"]
 	}
-	
-	exec{"restart_jail": 
-		command => "ezjail-admin restart $jail_hostname", 
-		path => $path_freebsd,
-		refreshonly  => true,
-		subscribe => File["$conf_dir/$jail_name"]
+
+	if ($restart_on_change == true) {	
+		exec{"restart_jail": 
+			command => "ezjail-admin restart $jail_hostname", 
+			path => $path_freebsd,
+			refreshonly  => true,
+			subscribe => File["$conf_dir/$jail_name"]
+		}
 	}
 	
 	
