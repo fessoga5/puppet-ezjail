@@ -29,7 +29,7 @@ define puppet-ezjail::jail (
 	}
 	
 	$restart_jail = $restart_on_change ? {
-		true => Restart,
+		true => Restart[""],
 		false => undef,
 	}
 	
