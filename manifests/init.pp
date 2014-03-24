@@ -5,9 +5,9 @@
 #
 class puppet-ezjail ($force_install = false, $enabled = false) {
     #install auegas
-    if defined (package["augeas"]){
+    #if defined (package["augeas"]){
         package {"augeas": ensure => latest,}
-    }
+    #}
 
     #autostart. Add to rc.conf
     augeas {"rc.conf":
