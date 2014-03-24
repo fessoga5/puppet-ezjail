@@ -5,7 +5,7 @@
 #
 class puppet-ezjail ($force_install = false, $enabled = false) {
     #install auegas
-    if defined (Package["augeas"]){
+    if defined (package["augeas"]){
         package {"augeas": ensure => latest,}
     }
 
