@@ -9,8 +9,6 @@ define puppet-ezjail::jail (
 	$jail_name,
 	$jail_hostname,
 	$jail_rootdir = "/usr/jails/",
-	$jail_ipaddress,
-	$jail_gateway,
 	$create = false,
 	$running = false,
 	$restart_on_change = true,
