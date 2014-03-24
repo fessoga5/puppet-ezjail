@@ -4,6 +4,11 @@
 #autor: fessoga5@gmail.com
 #
 class puppet-ezjail ($force_install = false, $enabled = false) {
+    #install auegas
+    if defined (Package["augeas"]){
+        package {"augeas": ensure => latest,}
+    }
+
     #autostart. Add to rc.conf
     augeas {"rc.conf":
         context => "/etc/rc.conf",
