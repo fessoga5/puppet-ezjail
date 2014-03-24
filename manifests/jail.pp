@@ -17,6 +17,7 @@ define puppet-ezjail::jail (
 	$extra_parametrs = "persist allow.raw_sockets=1 allow.sysvipc=1",
 	$poststart = "",
 	$poststop = "",
+    $prestart = "",
 )
 {
 	
@@ -33,7 +34,8 @@ define puppet-ezjail::jail (
 	}
 
 	$poststart_commands = $poststart
-	$poststop_commands = $poststop	
+	$poststop_commands = $poststop
+    $prestart_commands = $prestart
 	file { "$conf_dir/$jail_name":
 		replace => "yes",
 		owner   => $owner,
