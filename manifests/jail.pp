@@ -12,23 +12,31 @@ define puppet-ezjail::jail (
 	$jail_gateway,
 	$create = false,
 	$running = false,
+	$restart_on_change = true,
 	$extra_parametrs = "persist allow.raw_sockets=1 allow.sysvipc=1",
 )
 {
+	
+	$path_freebsd = ["/bin", "/sbin","/usr/bin", "/usr/sbin", "/usr/local/bin", "/usr/local/sbin"]
 	
 	$require_test = $create ? {
 		true  => Exec["create-ezjail"],
 		false => undef, 
 	}
+
+	$restart_jail = $restart_on_change ? {
+		true => exec{"restart_jail": command => "ezjail_admin restart $jail_hostaname", path => $path_freebsd,},
+		false => undef,
+	}
 	
-	$path_freebsd = ["/bin", "/sbin","/usr/bin", "/usr/sbin", "/usr/local/bin", "/usr/local/sbin"]
 	#Template for new jail
 	file { "$conf_dir/$jail_name":
 		replace => "yes",
 		owner   => $owner,
 		mode    => 600,
 		content => template('puppet-ezjail/conf_jail.xml'),
-		require => $require_test
+		require => $require_test,
+		notify => $restart_jail,
       	}
 
 	if ( $create == true ) {
