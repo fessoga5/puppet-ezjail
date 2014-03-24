@@ -7,13 +7,29 @@
 #
 
 #AUTOGENERATE PUPPET SPECIAL FOR rooml.ru
+<<<<<<< HEAD
 #v 0.0.1 branch stable
+=======
+#version 0.0.1 branch stable
+>>>>>>> master
 #
 export jail_<%= jail_name %>_hostname="<%= jail_hostname %>"
 #
-#
+#Standart task
 export jail_<%= jail_name %>_exec_start="/bin/sh /etc/rc"
 export jail_<%= jail_name %>_exec_stop="/bin/sh /etc/rc.shutdown"
+#Poststart
+<% if !poststart_commands.empty? %>
+<% @poststart_commands.to_enum.with_index(1).each do |this_command, idx| -%>
+<%= "export jail_#{jail_name}_exec_poststart#{idx}=\"#{this_command}\"" %>
+<% end -%>
+<% end -%>
+#Poststop
+<% if !poststop_commands.empty? %>
+<% @poststop_commands.to_enum.with_index(1).each do |this_command, idx| -%>
+<%= "export jail_#{jail_name}_exec_poststop#{idx}=\"#{this_command}\"" %>
+<% end -%>
+<% end -%>
 #
 export jail_<%= jail_name %>_ip=""
 export jail_<%= jail_name %>_rootdir="<%= jail_rootdir %>/<%= jail_hostname %>"
