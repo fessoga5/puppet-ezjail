@@ -4,8 +4,8 @@
 #
 define restart () {
 	exec{"restart_jail": 
-		command => "ezjail_admin restart $jail_hostname", 
-		path => $path_freebsd,
+		command => "ezjail_admin restart $name", 
+		path => ["/bin", "/sbin","/usr/bin", "/usr/sbin", "/usr/local/bin", "/usr/local/sbin"],
 	}
 }
 
