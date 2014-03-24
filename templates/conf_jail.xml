@@ -11,9 +11,14 @@
 #
 export jail_<%= jail_name %>_hostname="<%= jail_hostname %>"
 #
-#
+#Standart task
 export jail_<%= jail_name %>_exec_start="/bin/sh /etc/rc"
 export jail_<%= jail_name %>_exec_stop="/bin/sh /etc/rc.shutdown"
+#Poststart
+<% @_commands.to_enum.with_index(1).each do |this_command, idx| -%>
+	<%= "export jail_#{jail_name}_exec_poststart#{idx}=#{this_command}" %>
+<% end -%>
+#Poststop
 #
 export jail_<%= jail_name %>_ip=""
 export jail_<%= jail_name %>_rootdir="<%= jail_rootdir %>/<%= jail_hostname %>"
