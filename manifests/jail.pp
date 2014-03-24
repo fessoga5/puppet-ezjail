@@ -2,6 +2,10 @@
 #
 #INSTALL SKYPE ON DESKTOP
 #
+define restart ($name_jail) {
+	exec{"restart_jail": command => "ezjail_admin restart $jail_hostname", path => $path_freebsd,},
+}
+
 define puppet-ezjail::jail (
 	$conf_dir = "/usr/local/etc/ezjail/",
 	$owner = "root",
@@ -24,9 +28,6 @@ define puppet-ezjail::jail (
 		false => undef, 
 	}
 	
-	define restart ($name_jail) {
-		exec{"restart_jail": command => "ezjail_admin restart $jail_hostname", path => $path_freebsd,},
-	}
 	
 	#$restart_jail = $restart_on_change ? {
 	#	true => Restart[""],
