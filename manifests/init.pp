@@ -6,8 +6,8 @@
 class puppet-ezjail ($force_install = false, $enabled = false) {
     #autostart. Add to rc.conf
     $rc_status = $enabled ? {
-        true => "Yes",
-        false => "No",
+        true => "YES",
+        false => "NO",
     }
 
     augeas {"rc.conf":
