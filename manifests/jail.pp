@@ -37,6 +37,7 @@ define puppet-ezjail::jail (
 	exec{"restart_jail": 
 		command => "echo 1", 
 		path => $path_freebsd,
+		refreshonly  => true,
 	}
 	
 	
