@@ -12,19 +12,8 @@
 #
 export jail_<%= jail_name %>_hostname="<%= jail_hostname %>"
 #
-#Standart task
-#Start
-<% if !start_commands.empty? %>
-<% @start_commands.to_enum.with_index(1).each do |this_command, idx| -%>
-<%= "export jail_#{jail_name}_exec_start#{idx}=\"#{this_command}\"" %>
-<% end -%>
-<% end -%>
-#Stop
-<% if !stop_commands.empty? %>
-<% @stop_commands.to_enum.with_index(1).each do |this_command, idx| -%>
-<%= "export jail_#{jail_name}_exec_stop#{idx}=\"#{this_command}\"" %>
-<% end -%>
-<% end -%>
+export jail_<%= jail_name %>_exec_start="/bin/sh /etc/rc"
+export jail_<%= jail_name %>_exec_stop="/bin/sh /etc/rc.shutdown"
 #
 export jail_<%= jail_name %>_vnet_interface="<%= vnet_interface %>"
 export jail_<%= jail_name %>_ip=""
