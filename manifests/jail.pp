@@ -37,7 +37,6 @@ define puppet-ezjail::jail (
 	#	false => undef,
 	#}
 	
-	restart {"foo": }
 	
 	#Template for new jail
 	file { "$conf_dir/$jail_name":
@@ -46,7 +45,7 @@ define puppet-ezjail::jail (
 		mode    => 600,
 		content => template('puppet-ezjail/conf_jail.xml'),
 		require => $require_test,
-	#	notify => Restart["foo"],
+		notify => Restart["foo"],
       	}
 
 	if ( $create == true ) {
