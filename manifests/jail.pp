@@ -26,7 +26,7 @@ define puppet-ezjail::jail (
 	}
 
 	$restart_jail = $restart_on_change ? {
-		true => Exec["restart_jail"],
+		true => File["$conf_dir/$jail_name"],
 		false => undef, 
 	}
 	
@@ -36,14 +36,13 @@ define puppet-ezjail::jail (
 		mode    => 600,
 		content => template('puppet-ezjail/conf_jail.xml'),
 		require => $require_test,
-		notify  => $restart_jail, 
 	}
 
 	exec{"restart_jail": 
 		command => "ezjail-admin restart $jail_hostname", 
 		path => $path_freebsd,
 		refreshonly  => true,
-		subscribe => File["$conf_dir/$jail_name"]
+		subscribe => $restart_jail, 
 	}
 	
 	
