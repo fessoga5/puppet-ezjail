@@ -1,6 +1,6 @@
 # vim: sts=4 ts=4 sw=4 expandtab autoindent
 #
-#INSTALL SKYPE ON DESKTOP
+#INSTALL ezjail host on Freebsd 10 
 #
 class puppet-ezjail ($force_install = false) {
 
