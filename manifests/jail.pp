@@ -24,7 +24,7 @@ define puppet-ezjail::jail (
 		false => undef, 
 	}
 	
-	define restart {
+	define restart ($name_jail) {
 		exec{"restart_jail": command => "ezjail_admin restart $jail_hostname", path => $path_freebsd,},
 	}
 	
@@ -33,7 +33,7 @@ define puppet-ezjail::jail (
 	#	false => undef,
 	#}
 	
-	restart{"foo": }
+	restart {"foo": }
 	
 	#Template for new jail
 	file { "$conf_dir/$jail_name":
@@ -42,7 +42,7 @@ define puppet-ezjail::jail (
 		mode    => 600,
 		content => template('puppet-ezjail/conf_jail.xml'),
 		require => $require_test,
-		notify => Restart["foo"],
+	#	notify => Restart["foo"],
       	}
 
 	if ( $create == true ) {
