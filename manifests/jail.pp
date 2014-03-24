@@ -19,7 +19,7 @@ define puppet-ezjail::jail (
 	
 	$path_freebsd = ["/bin", "/sbin","/usr/bin", "/usr/sbin", "/usr/local/bin", "/usr/local/sbin"]
     #Create interfaces in rc.conf
-    augeas {"rc.conf":
+    augeas {"rc.conf_bridge":
         context => "/files/etc/rc.conf",
         changes => ["set ifconfig_bridge0 \"inet 172.16.0.1/30\"/"],
     }
