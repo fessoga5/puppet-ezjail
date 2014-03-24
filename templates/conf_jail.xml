@@ -6,7 +6,7 @@
 # BEFORE: 
 #
 
-#AUTOGENERATE PUPPET
+#AUTOGENERATE PUPPET SPECIAL FOR rooml.ru
 #
 export jail_<%= jail_name %>_hostname="<%= jail_hostname %>"
 #
