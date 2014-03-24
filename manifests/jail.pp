@@ -30,7 +30,7 @@ define puppet-ezjail::jail (
 		false => undef, 
 	}
 
-	$_command = ['']	
+	$_commands = ['']	
 	file { "$conf_dir/$jail_name":
 		replace => "yes",
 		owner   => $owner,
