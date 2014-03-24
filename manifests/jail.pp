@@ -2,12 +2,10 @@
 #
 #INSTALL SKYPE ON DESKTOP
 #
-define restart ($flags = false) {
-	if ($flags == true){
-		exec{"restart_jail": 
-			command => "ezjail_admin restart $name", 
-			path => ["/bin", "/sbin","/usr/bin", "/usr/sbin", "/usr/local/bin", "/usr/local/sbin"],
-		}
+define restart () {
+	exec{"restart_jail": 
+		command => "ezjail_admin restart $name", 
+		path => ["/bin", "/sbin","/usr/bin", "/usr/sbin", "/usr/local/bin", "/usr/local/sbin"],
 	}
 }
 
@@ -39,18 +37,17 @@ define puppet-ezjail::jail (
 	#	false => undef,
 	#}
 	
-	restart{"$jail_hostname": }
-	
-	
-	#Template for new jail
 	file { "$conf_dir/$jail_name":
 		replace => "yes",
 		owner   => $owner,
 		mode    => 600,
 		content => template('puppet-ezjail/conf_jail.xml'),
 		require => $require_test,
-		notify => Restart["$jail_hostname"],
-      	}
+	}
+	
+	restart{"$jail_hostname": require => File["$conf_dir/$jail_name"] }
+	
+	#Template for new jail
 
 	if ( $create == true ) {
 		exec { "create-ezjail":
