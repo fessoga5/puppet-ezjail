@@ -15,7 +15,7 @@ define puppet-ezjail::jail (
 	$running = false,
 	$restart_on_change = true,
 	$extra_parametrs = "persist allow.raw_sockets=1 allow.sysvipc=1",
-	$poststart_commands,
+	$poststart_commands = undef,
 )
 {
 	
