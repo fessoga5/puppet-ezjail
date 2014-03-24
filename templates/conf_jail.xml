@@ -16,9 +16,9 @@ export jail_<%= jail_name %>_exec_start="/bin/sh /etc/rc"
 export jail_<%= jail_name %>_exec_stop="/bin/sh /etc/rc.shutdown"
 #Poststart
 <% if !poststart_commands.empty? %>
-	<% @poststart_commands.to_enum.with_index(1).each do |this_command, idx| -%>
-		<%= "export jail_#{jail_name}_exec_poststart#{idx}=#{this_command}" %>
-	<% end -%>
+<% @poststart_commands.to_enum.with_index(1).each do |this_command, idx| -%>
+<%= "export jail_#{jail_name}_exec_poststart#{idx}=#{this_command}" %>
+<% end -%>
 <% end -%>
 #Poststop
 #
