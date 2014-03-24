@@ -25,21 +25,29 @@ define puppet-ezjail::jail (
 		false => undef, 
 	}
 	
-	file { "$conf_dir/$jail_name":
-		replace => "yes",
-		owner   => $owner,
-		mode    => 600,
-		content => template('puppet-ezjail/conf_jail.xml'),
-		require => $require_test,
-		notify => Exec["restart_jail"]
-	}
 
 	if ($restart_on_change == true) {	
+		file { "$conf_dir/$jail_name":
+			replace => "yes",
+			owner   => $owner,
+			mode    => 600,
+			content => template('puppet-ezjail/conf_jail.xml'),
+			require => $require_test,
+			notify => Exec["restart_jail"]
+		}
 		exec{"restart_jail": 
 			command => "ezjail-admin restart $jail_hostname", 
 			path => $path_freebsd,
 			refreshonly  => true,
 			subscribe => File["$conf_dir/$jail_name"]
+		}
+	} else {
+		file { "$conf_dir/$jail_name":
+			replace => "yes",
+			owner   => $owner,
+			mode    => 600,
+			content => template('puppet-ezjail/conf_jail.xml'),
+			require => $require_test,
 		}
 	}
 	
