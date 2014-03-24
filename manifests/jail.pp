@@ -38,6 +38,7 @@ define puppet-ezjail::jail (
 		command => "echo 1", 
 		path => $path_freebsd,
 		refreshonly  => true,
+		subscribe => File["$conf_dir/$jail_name"]
 	}
 	
 	
