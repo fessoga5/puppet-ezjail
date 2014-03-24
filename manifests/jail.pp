@@ -24,8 +24,10 @@ define puppet-ezjail::jail (
 		false => undef, 
 	}
 
+	exec{"restart_jail": command => "ezjail_admin restart $jail_hostaname", path => $path_freebsd,},
+
 	$restart_jail = $restart_on_change ? {
-		true => exec{"restart_jail": command => "ezjail_admin restart $jail_hostaname", path => $path_freebsd,},
+		true => Exec["restart_jail"],
 		false => undef,
 	}
 	
