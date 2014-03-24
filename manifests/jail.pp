@@ -29,7 +29,8 @@ define puppet-ezjail::jail (
 		true => File["$conf_dir/$jail_name"],
 		false => undef, 
 	}
-	
+
+	$_command = ['']	
 	file { "$conf_dir/$jail_name":
 		replace => "yes",
 		owner   => $owner,
