@@ -6,6 +6,7 @@
 # BEFORE: 
 #
 
+#AUTOGENERATE PUPPET
 #
 export jail_<%= jail_name %>_hostname="<%= jail_hostname %>"
 #
