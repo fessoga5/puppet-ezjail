@@ -7,11 +7,8 @@
 #
 
 #AUTOGENERATE PUPPET SPECIAL FOR rooml.ru
-<<<<<<< HEAD
 #v 0.0.1 branch stable
-=======
 #version 0.0.1 branch stable
->>>>>>> master
 #
 export jail_<%= jail_name %>_hostname="<%= jail_hostname %>"
 #
