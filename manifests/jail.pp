@@ -22,6 +22,7 @@ define puppet-ezjail::jail (
     augeas {"rc.conf_bridge":
         context => "/files/etc/rc.conf",
         changes => ["set cloned_interfaces '\" $cloned_interfaces $vnet_interface \"'"],
+        unless => "/bin/cat rc.conf | /usr/bin/grep $vnet_interface",
     }
     notify{"$cloned_interfaces": }
 
