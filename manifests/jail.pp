@@ -24,7 +24,6 @@ define puppet-ezjail::jail (
         changes => ["set cloned_interfaces '\" $cloned_interfaces $vnet_interface \"'"],
         onlyif => "match cloned_interfaces include $vnet_interface",
     }
-    notify{"$cloned_interfaces": }
 
     #
 	$require_test = $create ? {
