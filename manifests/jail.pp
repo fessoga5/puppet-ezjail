@@ -66,7 +66,7 @@ define puppet-ezjail::jail (
 	}
 
 	$restart_jail = $restart_on_change ? {
-		true => [File["$conf_dir/$jail_name"], Exec["inet_epair"]]
+		true => [File["$conf_dir/$jail_name"], Exec["inet_epair"]],
 		false => undef, 
 	}
 
