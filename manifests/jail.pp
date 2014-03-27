@@ -10,7 +10,6 @@ define puppet-ezjail::jail (
 	$jail_hostname,
 	$jail_rootdir = "/usr/jails/",
     $jail_ipaddress,
-    $jail_create_name,
 	$create = false,
 	$running = false,
 	$restart_on_change = true,
@@ -91,7 +90,7 @@ define puppet-ezjail::jail (
 
 	if ( $create == true ) {
 		exec { "create-ezjail":
-			command => "ezjail-admin create -r $jail_rootdir/$jail_hostname $jail_create_name $jail_ipaddress",
+			command => "ezjail-admin create -r $jail_rootdir/$jail_hostname $jail_name $jail_ipaddress",
 			path => $path_freebsd,
 			unless => '/bin/test -b $jail_rootdir/$jail_hostname'
 		}
