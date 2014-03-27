@@ -46,7 +46,7 @@ define puppet-ezjail::jail (
 		exec { "create_epair":
 			command => "ifconfig $vnet_interface create ",
 			path => $path_freebsd,
-			unless => "/sbin/ifconfig ${vnet_interface}"
+			unless => "/sbin/ifconfig $vnet_interface"
 		}
 		
         #inet for epair
@@ -54,7 +54,7 @@ define puppet-ezjail::jail (
 			command => "ifconfig ${vnet_interface}a ${inet_epair_a} up",
 			path => $path_freebsd,
             require => Exec["create_epair"],
-			unless => "/sbin/ifconfig ${vnet_interface} | /usr/bin/grep ${inet_epair_a}"
+			unless => "/sbin/ifconfig $vnet_interface | /usr/bin/grep $inet_epair_a"
 		}
 
     }
