@@ -90,7 +90,7 @@ define puppet-ezjail::jail (
 
 	if ( $create == true ) {
 		exec { "create-ezjail":
-			command => "ezjail-admin create -r $jail_rootdir/$jail_hostname $jail_name $jail_ipaddress",
+			command => "ezjail-admin create -r $jail_rootdir/$jail_hostname $jail_hostname $jail_ipaddress",
 			path => $path_freebsd,
 			unless => '/bin/test -b $jail_rootdir/$jail_hostname'
 		}
