@@ -92,7 +92,7 @@ define puppet-ezjail::jail (
 		exec { "create-ezjail_${name}":
 			command => "ezjail-admin create -r $jail_rootdir/$jail_hostname $jail_name $jail_ipaddress",
 			path => $path_freebsd,
-			unless => '/bin/test -d $jail_rootdir/$jail_hostname'
+			unless => "/bin/test -d ${jail_rootdir}/${jail_hostname}"
 		}
 	}
 	
@@ -101,7 +101,7 @@ define puppet-ezjail::jail (
 			command => "ezjail-admin start $jail_hostname",
 			path => $path_freebsd,
 			require => File["config_${name}"],
-			unless => "/usr/sbin/jls | /usr/bin/grep $jail_hostname"
+			unless => ["/usr/sbin/jls | /usr/bin/grep $jail_hostname", "/bin/test -d ${jail_rootdir}/${jail_hostname}"]
 		}
 	}	
 }
