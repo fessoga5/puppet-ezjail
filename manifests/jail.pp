@@ -88,7 +88,7 @@ define puppet-ezjail::jail (
 	
 	#Template for new jail
 
-	if ( $create == 'true' ) {
+	if ( $create == true ) {
 		exec { "create-ezjail":
 			command => "ezjail-admin create -r $jail_rootdir/$jail_hostname $jail_name $jail_ipaddress",
 			path => $path_freebsd,
