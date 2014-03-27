@@ -9,6 +9,7 @@ define puppet-ezjail::jail (
 	$jail_name,
 	$jail_hostname,
 	$jail_rootdir = "/usr/jails/",
+    $jail_ipaddress,
 	$create = false,
 	$running = false,
 	$restart_on_change = true,
@@ -17,7 +18,7 @@ define puppet-ezjail::jail (
     $autostart = true,
     $create_ifaces_epair = true,
     $inet_epair_a,
-    $jail_ipaddress,
+    $netmask_epair_a,
 )
 {
 	
@@ -34,7 +35,7 @@ define puppet-ezjail::jail (
         #Add interface ipaddress to rc.conf
         augeas {"rc.conf_inet_epairs":
             context => "/files/etc/rc.conf",
-            changes => ["set ifconfig_${vnet_interface}a '\"inet ${inet_epair_a}\"'"],
+            changes => ["set ifconfig_${vnet_interface}a '\"inet ${inet_epair_a} netmask ${netmask_epair_a}\"'"],
             onlyif => "match ifconfig_${vnet_interface}a[. =~ regexp('.*inet ${inet_epair_a}.*')] size == 0",
             require => Augeas["rc.conf_epairs"],
         }
@@ -51,10 +52,10 @@ define puppet-ezjail::jail (
 		
         #inet for epair
         exec { "inet_epair":
-			command => "ifconfig ${vnet_interface}a ${inet_epair_a} up",
+			command => "ifconfig ${vnet_interface}a ${inet_epair_a} netmask ${netmask_epair_a} up",
 			path => $path_freebsd,
             require => Exec["create_epair"],
-			unless => "/sbin/ifconfig ${vnet_interface}a | /usr/bin/grep $inet_epair_a"
+			unless => "/sbin/ifconfig ${vnet_interface}a | /usr/bin/grep ${inet_epair_a}"
 		}
 
     }
