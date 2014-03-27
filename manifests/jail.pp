@@ -52,7 +52,7 @@ define puppet-ezjail::jail (
         exec { "inet_epair":
 			command => "ifconfig ${vnet_interface}a ${inet_epair_a} up",
 			path => $path_freebsd,
-            require => Exec["create_epair"]
+            require => Exec["create_epair"],
 			unless => "/sbin/ifconfig ${vnet_interface} | /usr/bin/grep ${inet_epair_a}"
 		}
 
