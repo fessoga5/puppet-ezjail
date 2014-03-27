@@ -21,7 +21,6 @@ define puppet-ezjail::jail (
     $netmask_epair_a,
 )
 {
-	
 	$path_freebsd = ["/bin", "/sbin","/usr/bin", "/usr/sbin", "/usr/local/bin", "/usr/local/sbin"]
     #Create interfaces in rc.conf
     if ($autostart == true) {
