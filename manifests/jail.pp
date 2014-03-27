@@ -36,7 +36,7 @@ define puppet-ezjail::jail (
         augeas {"rc.conf_inet_epairs":
             context => "/files/etc/rc.conf",
             changes => ["set ifconfig_${vnet_interface}a '\"inet ${inet_epair_a} netmask ${netmask_epair_a}\"'"],
-            onlyif => "match ifconfig_${vnet_interface}a[. =~ regexp('.*inet ${inet_epair_a}.*')] size == 0",
+            onlyif => "match ifconfig_${vnet_interface}a[. =~ regexp('.*inet ${inet_epair_a} netmask ${netmask_epair_a}.*')] size == 0",
             require => Augeas["rc.conf_epairs"],
         }
 
