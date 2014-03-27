@@ -14,15 +14,28 @@ define puppet-ezjail::jail (
 	$restart_on_change = true,
 	$extra_parametrs = "persist allow.raw_sockets=1 allow.sysvipc=1",
     $vnet_interface = "",
+    $autostart = true,
+    $inet_epair_a,
 )
 {
 	
 	$path_freebsd = ["/bin", "/sbin","/usr/bin", "/usr/sbin", "/usr/local/bin", "/usr/local/sbin"]
     #Create interfaces in rc.conf
-    augeas {"rc.conf_bridge":
-        context => "/files/etc/rc.conf",
-        changes => ["set cloned_interfaces '\"$cloned_interfaces $vnet_interface\"'"],
-        onlyif => "match cloned_interfaces[. =~ regexp('.*$vnet_interface.*')] size == 0",
+    if ($autostart == true) {
+        #Add interface to rc.conf
+        augeas {"rc.conf_epairs":
+            context => "/files/etc/rc.conf",
+            changes => ["set cloned_interfaces '\"$cloned_interfaces $vnet_interface\"'"],
+            onlyif => "match cloned_interfaces[. =~ regexp('.*$vnet_interface.*')] size == 0",
+        }
+        
+        #Add interface ipaddress to rc.conf
+        augeas {"rc.conf_inet_epairs":
+            context => "/files/etc/rc.conf",
+            changes => ["set ifconfig_${vnet_interface}a '\"inet ${inet_epair_a}\"'"],
+            onlyif => "match ifconfig_${vnet_interface}a[. =~ regexp('.*inet ${inet_epair_a}.*')] size == 0",
+        }
+
     }
 
     #
