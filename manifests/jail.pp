@@ -82,6 +82,7 @@ define puppet-ezjail::jail (
 		command => "ezjail-admin restart $jail_hostname", 
 		path => $path_freebsd,
 		refreshonly  => true,
+        unless => ["/usr/sbin/jls | /usr/bin/grep $jail_hostname", "/bin/test -d ${jail_rootdir}/${jail_hostname}"],
 		subscribe => $restart_jail, 
 	}
 	
