@@ -17,6 +17,7 @@ define puppet-ezjail::jail (
     $autostart = true,
     $create_ifaces_epair = true,
     $inet_epair_a,
+    $jail_ipaddress,
 )
 {
 	
