@@ -15,6 +15,7 @@ define puppet-ezjail::jail (
 	$extra_parametrs = "persist allow.raw_sockets=1 allow.sysvipc=1",
     $vnet_interface = "",
     $autostart = true,
+    $create_ifaces_epair = true,
     $inet_epair_a,
 )
 {
@@ -39,6 +40,23 @@ define puppet-ezjail::jail (
 
     }
 
+    if ($create_ifaces_epair == true) {
+        #create epair
+		exec { "create_epair":
+			command => "ifconfig $vnet_interface create ",
+			path => $path_freebsd,
+			unless => "/sbin/ifconfig ${vnet_interface}"
+		}
+		
+        #inet for epair
+        exec { "inet_epair":
+			command => "ifconfig ${vnet_interface}a ${inet_epair_a} up",
+			path => $path_freebsd,
+            require => Exec["create_epair"]
+			unless => "/sbin/ifconfig ${vnet_interface} | /usr/bin/grep ${inet_epair_a}"
+		}
+
+    }
     #
 	$require_test = $create ? {
 		true  => Exec["create-ezjail"],
